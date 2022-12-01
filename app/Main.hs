@@ -8,6 +8,7 @@ import qualified Data.Text.IO as B
 import Data.Text.Read as R
 import Data.Either
 import Control.Monad.IO.Class
+import Data.List (sort)
 
 
 sumInputList :: T.Text -> [Int]
@@ -19,15 +20,13 @@ sumInputList text =
     $ map (\c -> filter isRight $ map R.decimal c)
     $ map (\n -> T.splitOn "\n" n) (T.splitOn "\n\n" text ) 
 
+
 say :: MonadIO m => T.Text -> m ()
-say = liftIO . B.putStrLn
+say = liftIO . print
 
 main :: IO ()
 main =
     B.readFile "input/day1.txt" >>= \text -> 
-        say  "testing" <> T.toText  maximum $ sumInputList text
+       print $ reverse $ sort $ sumInputList text 
+
         
-
-
-
-
